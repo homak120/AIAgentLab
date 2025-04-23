@@ -1,4 +1,4 @@
-from agents import Agent, WebSearchTool
+from agents import Agent, WebSearchTool, OpenAIChatCompletionsModel, AsyncOpenAI
 from agents.model_settings import ModelSettings
 
 INSTRUCTIONS = (
@@ -10,9 +10,15 @@ INSTRUCTIONS = (
     "itself."
 )
 
+model = OpenAIChatCompletionsModel(
+    model="gemma3:4b",
+    openai_client=AsyncOpenAI(base_url="http://localhost:11434/v1")
+)
+
 search_agent = Agent(
     name="Search agent",
     instructions=INSTRUCTIONS,
     tools=[WebSearchTool()],
     model_settings=ModelSettings(tool_choice="required"),
+    model=model,
 )

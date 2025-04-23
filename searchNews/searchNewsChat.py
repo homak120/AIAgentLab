@@ -10,7 +10,7 @@ async def main(message: cl.Message):
 
     await cl.Message(
         content=f"Searching for news articles for '{topic}'...",
-        author="EduAgent"
+        author="AIAgentLab"
     ).send()
 
     try:
@@ -21,7 +21,7 @@ async def main(message: cl.Message):
     except Exception as e:
         await cl.Message(
             content=f"An error occurred: {e}",
-            author="EduAgent"
+            author="AIAgentLab"
         ).send()
 
 @cl.on_chat_start

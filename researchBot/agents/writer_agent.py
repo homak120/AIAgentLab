@@ -1,7 +1,7 @@
 # Agent used to synthesize a final report from the individual summaries.
 from pydantic import BaseModel
 
-from agents import Agent
+from agents import Agent, OpenAIChatCompletionsModel, AsyncOpenAI
 
 PROMPT = (
     "You are a senior researcher tasked with writing a cohesive report for a research query. "
@@ -24,10 +24,14 @@ class ReportData(BaseModel):
     follow_up_questions: list[str]
     """Suggested topics to research further"""
 
+model = OpenAIChatCompletionsModel(
+    model="deepseek-r1:7b",
+    openai_client=AsyncOpenAI(base_url="http://localhost:11434/v1")
+)
 
 writer_agent = Agent(
     name="WriterAgent",
     instructions=PROMPT,
-    model="o3-mini",
+    model=model,
     output_type=ReportData,
 )

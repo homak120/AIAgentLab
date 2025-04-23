@@ -3,3 +3,5 @@ node_modules/
 env/
 researchBot/researchBotEnv
 searchNews/searchNewsEnv
+searchNews/.chainlit/
+searchNews/__pycache__/

@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from agents import Agent
+from agents import Agent, OpenAIChatCompletionsModel, AsyncOpenAI
 
 PROMPT = (
     "You are a helpful research assistant. Given a query, come up with a set of web searches "
@@ -20,10 +20,14 @@ class WebSearchPlan(BaseModel):
     searches: list[WebSearchItem]
     """A list of web searches to perform to best answer the query."""
 
+model = OpenAIChatCompletionsModel(
+    model="llama3.2:latest",
+    openai_client=AsyncOpenAI(base_url="http://localhost:11434/v1")
+)
 
 planner_agent = Agent(
     name="PlannerAgent",
     instructions=PROMPT,
-    model="gpt-4o",
+    model=model,
     output_type=WebSearchPlan,
 )
